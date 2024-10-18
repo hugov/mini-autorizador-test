@@ -41,5 +41,17 @@ public class CartaoService {
 
         return cartaoDTO;
     }
+	
+	public BigDecimal consultarSaldoCartao(Long numeroCartao) {
+        log.info(String.format("Consultado o saldo do cartão %d", numeroCartao));
+
+        Optional<Cartao> cartaoExistente = cartaoRepository.findByNumeroCartao(numeroCartao);
+        if (cartaoExistente.isPresent()) {
+            return cartaoExistente.get().getSaldo();
+            //return cartaoExistente.get().getSaldo().doubleValue();
+        } else {
+        	throw new RuntimeException("Cartão não existe");
+        }
+    }
 
 }
