@@ -10,11 +10,10 @@ import org.springframework.stereotype.Service;
 import br.com.decimal.miniautorizador.dto.CartaoDTO;
 import br.com.decimal.miniautorizador.entity.Cartao;
 import br.com.decimal.miniautorizador.repository.CartaoRepository;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Service
-@RequiredArgsConstructor
+//@RequiredArgsConstructor
 @Slf4j
 public class CartaoService {
 	
