@@ -35,7 +35,7 @@ public class CartaoService {
         novoCartao.setSenha(cartaoDTO.getSenha());
         novoCartao.setDataValidade(LocalDateTime.now().plusYears(5));
         novoCartao.setSaldo(BigDecimal.ZERO);
-        novoCartao.setSituacao(1); // 1 significa ativo
+        novoCartao.setSituacao(1);
 
         cartaoRepository.save(novoCartao);
 
@@ -48,7 +48,6 @@ public class CartaoService {
         Optional<Cartao> cartaoExistente = cartaoRepository.findByNumeroCartao(numeroCartao);
         if (cartaoExistente.isPresent()) {
             return cartaoExistente.get().getSaldo();
-            //return cartaoExistente.get().getSaldo().doubleValue();
         } else {
         	throw new RuntimeException("Cartão não existe");
         }

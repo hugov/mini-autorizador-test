@@ -16,6 +16,7 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.authorizeHttpRequests((authorize) -> authorize
             .requestMatchers("/cartoes/**").hasRole("USER")
+            .requestMatchers("/transacoes/**").hasRole("USER")
             .anyRequest().authenticated()
         );
 

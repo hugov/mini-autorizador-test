@@ -66,26 +66,26 @@ public class CartaoServiceTest {
         cartao.setNumeroCartao(numeroCartao);
         cartao.setSaldo(new BigDecimal("123.45"));
 
-        when(cartaoRepository.findByNumeroCartao(numeroCartao)).thenReturn(Optional.of(cartao)); // Configura o mock
+        when(cartaoRepository.findByNumeroCartao(numeroCartao)).thenReturn(Optional.of(cartao));
 
-        BigDecimal saldo = cartaoService.consultarSaldoCartao(numeroCartao); // Chama o método a ser testado
+        BigDecimal saldo = cartaoService.consultarSaldoCartao(numeroCartao);
 
-        assertEquals(new BigDecimal("123.45"), saldo); // Verifica se o saldo retornado está correto
-        verify(cartaoRepository, times(1)).findByNumeroCartao(numeroCartao); // Verifica se o método foi chamado uma vez
+        assertEquals(new BigDecimal("123.45"), saldo);
+        verify(cartaoRepository, times(1)).findByNumeroCartao(numeroCartao);
     }
 
     @Test
     public void deveLancarExcecaoQuandoCartaoNaoExistir() {
-        Long numeroCartao = 0L; // Número de cartão que não existe
+        Long numeroCartao = 0L;
 
-        when(cartaoRepository.findByNumeroCartao(numeroCartao)).thenReturn(Optional.empty()); // Configura o mock para retornar vazio
+        when(cartaoRepository.findByNumeroCartao(numeroCartao)).thenReturn(Optional.empty());
 
         //FIXME: Corrigir o tipo de exceção
         assertThrows(RuntimeException.class, () -> {
-            cartaoService.consultarSaldoCartao(numeroCartao); // Chama o método e verifica se a exceção é lançada
+            cartaoService.consultarSaldoCartao(numeroCartao);
         });
 
-        verify(cartaoRepository, times(1)).findByNumeroCartao(numeroCartao); // Verifica se o método foi chamado uma vez
+        verify(cartaoRepository, times(1)).findByNumeroCartao(numeroCartao);
     }
 
 }
