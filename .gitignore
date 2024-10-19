@@ -33,3 +33,5 @@ replay_pid*
 .project
 *.settings
 .settings/
+
+bin/
