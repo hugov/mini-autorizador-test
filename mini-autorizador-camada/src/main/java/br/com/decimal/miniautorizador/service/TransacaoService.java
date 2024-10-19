@@ -4,6 +4,8 @@ import java.math.BigDecimal;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Transactional;
 
 import br.com.decimal.miniautorizador.dto.TransacaoDTO;
 import br.com.decimal.miniautorizador.entity.Cartao;
@@ -11,6 +13,7 @@ import br.com.decimal.miniautorizador.entity.Transacao;
 import br.com.decimal.miniautorizador.exception.StatusTransacaoException;
 import br.com.decimal.miniautorizador.repository.CartaoRepository;
 import br.com.decimal.miniautorizador.repository.TransacaoRepository;
+import lombok.Locked;
 import lombok.extern.slf4j.Slf4j;
 
 @Service
@@ -27,9 +30,11 @@ public class TransacaoService {
 		OK, SALDO_INSUFICIENTE, SENHA_INVALIDA, CARTAO_INEXISTENTE
 	}
 
+	@Transactional(isolation = Isolation.SERIALIZABLE)
+	@Locked
 	public String realizarTransacao(TransacaoDTO transacaoDTO) {
 		Long numeroCartao = Long.parseLong(transacaoDTO.getNumeroCartao());
-        log.info("Obtendo o cartão {} da transação", numeroCartao);
+        log.info("Realizando a transação no cartão {}", numeroCartao);
         
         Transacao transacao = criarTransacao(transacaoDTO, numeroCartao);
         transacaoRepository.save(transacao);

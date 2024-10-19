@@ -22,7 +22,7 @@ public class CartaoService {
 	
 	public CartaoDTO cadastrarCartao(CartaoDTO cartaoDTO) {
         Long numeroCartao = Long.parseLong(cartaoDTO.getNumeroCartao());
-        log.info("Criando o cartão {}", numeroCartao);
+        log.info("Executando o serviço de criação de cartão {}", numeroCartao);
 
         Optional<Cartao> cartaoExistente = cartaoRepository.findByNumeroCartao(numeroCartao);
         if (cartaoExistente.isPresent()) {
