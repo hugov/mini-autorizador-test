@@ -32,16 +32,8 @@ public class TransacaoServiceTest {
 	@Test
     public void deveRetornarSaldoComSucesso() {
         Long numeroCartao = 6549873025634501L;
-        
-        Cartao cartao = new Cartao();
-        cartao.setNumeroCartao(numeroCartao);
-        cartao.setSaldo(new BigDecimal("500.00"));
-        cartao.setSenha("1234");
-        
-        TransacaoDTO transacaoDTO = new TransacaoDTO();
-        transacaoDTO.setNumeroCartao(String.valueOf(numeroCartao));
-        transacaoDTO.setSenhaCartao("1234");
-        transacaoDTO.setValor(BigDecimal.valueOf(20.00));
+        Cartao cartao = prepareCartao(numeroCartao, 500.0d, "1234");
+        TransacaoDTO transacaoDTO = prepareTransacao(numeroCartao, 20.00d, "1234");
 
         when(cartaoRepository.findByNumeroCartao(numeroCartao)).thenReturn(Optional.of(cartao));
         
@@ -54,57 +46,59 @@ public class TransacaoServiceTest {
 	@Test
     public void deveRetornarCartaoInexistente() {
         Long numeroCartao = 0L;
-        
-        TransacaoDTO transacaoDTO = new TransacaoDTO();
-        transacaoDTO.setNumeroCartao(String.valueOf(numeroCartao));
-        transacaoDTO.setSenhaCartao("1234");
-        transacaoDTO.setValor(BigDecimal.valueOf(500.00));
+        TransacaoDTO transacaoDTO = prepareTransacao(numeroCartao, 20.0d, "1234");
 
         StatusTransacaoException exception = assertThrows(StatusTransacaoException.class, () -> transacaoService.realizarTransacao(transacaoDTO));
         assertEquals("CARTAO_INEXISTENTE", exception.getMessage());
         
+        verify(cartaoRepository, times(1)).findByNumeroCartao(numeroCartao);
     }
 	
 	@Test
     public void deveRetornarSaldoInsuficiente() {
         Long numeroCartao = 6549873025634501L;
-        
-        Cartao cartao = new Cartao();
-        cartao.setNumeroCartao(numeroCartao);
-        cartao.setSaldo(new BigDecimal("500.00"));
-        cartao.setSenha("1234");
-        
-        TransacaoDTO transacaoDTO = new TransacaoDTO();
-        transacaoDTO.setNumeroCartao(String.valueOf(numeroCartao));
-        transacaoDTO.setSenhaCartao("1234");
-        transacaoDTO.setValor(BigDecimal.valueOf(500.01));
+        Cartao cartao = prepareCartao(numeroCartao, 500.0d, "1234");
+        TransacaoDTO transacaoDTO = prepareTransacao(numeroCartao, 500.01d, "1234");
         
         when(cartaoRepository.findByNumeroCartao(numeroCartao)).thenReturn(Optional.of(cartao));
 
         StatusTransacaoException exception = assertThrows(StatusTransacaoException.class, () -> transacaoService.realizarTransacao(transacaoDTO));
         assertEquals("SALDO_INSUFICIENTE", exception.getMessage());
+        
+        verify(cartaoRepository, times(1)).findByNumeroCartao(numeroCartao);
     }
 	
 	@Test
     public void deveRetornarSenhaIncorreta() {
         Long numeroCartao = 6549873025634501L;
-        
-        Cartao cartao = new Cartao();
-        cartao.setNumeroCartao(numeroCartao);
-        cartao.setSaldo(new BigDecimal("500.00"));
-        cartao.setSenha("1234");
-        
-        TransacaoDTO transacaoDTO = new TransacaoDTO();
-        transacaoDTO.setNumeroCartao(String.valueOf(numeroCartao));
-        transacaoDTO.setSenhaCartao("12345");
-        transacaoDTO.setValor(BigDecimal.valueOf(500.00));
+        Cartao cartao = prepareCartao(numeroCartao, 500.0d, "1234");
+        TransacaoDTO transacaoDTO = prepareTransacao(numeroCartao, 20.0d, "12345");
         
         when(cartaoRepository.findByNumeroCartao(numeroCartao)).thenReturn(Optional.of(cartao));
 
         StatusTransacaoException exception = assertThrows(StatusTransacaoException.class, () -> transacaoService.realizarTransacao(transacaoDTO));
         assertEquals("SENHA_INVALIDA", exception.getMessage());
+        
+        verify(cartaoRepository, times(1)).findByNumeroCartao(numeroCartao);
     }
 	
+	private Cartao prepareCartao( long numeroCartao, Double saldo, String senha ) {
+		Cartao cartao = new Cartao();
+        cartao.setNumeroCartao(numeroCartao);
+        cartao.setSaldo(BigDecimal.valueOf(saldo));
+        cartao.setSenha(senha);
+        
+        return cartao;
+	}
 	
+	private TransacaoDTO prepareTransacao(long numeroCartao, Double valor, String senha) {
+		TransacaoDTO transacaoDTO = new TransacaoDTO();
+        transacaoDTO.setNumeroCartao(String.valueOf(numeroCartao));
+        transacaoDTO.setSenhaCartao(senha);
+        transacaoDTO.setValor(BigDecimal.valueOf(valor));
+        
+        return transacaoDTO;
+	}
 
 }
+// 106

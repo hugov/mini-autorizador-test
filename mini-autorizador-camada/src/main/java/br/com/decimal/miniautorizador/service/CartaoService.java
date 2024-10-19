@@ -22,7 +22,7 @@ public class CartaoService {
 	
 	public CartaoDTO cadastrarCartao(CartaoDTO cartaoDTO) {
         Long numeroCartao = Long.parseLong(cartaoDTO.getNumeroCartao());
-        log.info(String.format("Criando o cartão %d", numeroCartao));
+        log.info("Criando o cartão {}", numeroCartao);
 
         Optional<Cartao> cartaoExistente = cartaoRepository.findByNumeroCartao(numeroCartao);
         if (cartaoExistente.isPresent()) {
@@ -40,7 +40,7 @@ public class CartaoService {
     }
 	
 	public BigDecimal consultarSaldoCartao(Long numeroCartao) {
-        log.info(String.format("Consultado o saldo do cartão %d", numeroCartao));
+        log.info("Consultado o saldo do cartão {}", numeroCartao);
 
         Optional<Cartao> cartaoExistente = cartaoRepository.findByNumeroCartao(numeroCartao);
         if (cartaoExistente.isPresent()) {

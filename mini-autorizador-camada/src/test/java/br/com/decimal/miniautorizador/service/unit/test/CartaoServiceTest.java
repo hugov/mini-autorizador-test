@@ -81,9 +81,7 @@ public class CartaoServiceTest {
         when(cartaoRepository.findByNumeroCartao(numeroCartao)).thenReturn(Optional.empty());
 
         //FIXME: Corrigir o tipo de exceção
-        assertThrows(RuntimeException.class, () -> {
-            cartaoService.consultarSaldoCartao(numeroCartao);
-        });
+        assertThrows(RuntimeException.class, () -> cartaoService.consultarSaldoCartao(numeroCartao));
 
         verify(cartaoRepository, times(1)).findByNumeroCartao(numeroCartao);
     }

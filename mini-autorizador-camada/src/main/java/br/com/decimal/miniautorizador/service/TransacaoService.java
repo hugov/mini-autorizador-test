@@ -1,7 +1,6 @@
 package br.com.decimal.miniautorizador.service;
 
 import java.math.BigDecimal;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,55 +16,59 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 @Slf4j
 public class TransacaoService {
-	
+
 	@Autowired
 	private TransacaoRepository transacaoRepository;
-	
+
 	@Autowired
 	private CartaoRepository cartaoRepository;
-	
+
 	enum StatusTransacaoEnum {
-		OK,
-	    SALDO_INSUFICIENTE,
-	    SENHA_INVALIDA,
-	    CARTAO_INEXISTENTE
+		OK, SALDO_INSUFICIENTE, SENHA_INVALIDA, CARTAO_INEXISTENTE
+	}
+
+	public String realizarTransacao(TransacaoDTO transacaoDTO) {
+		Long numeroCartao = Long.parseLong(transacaoDTO.getNumeroCartao());
+        log.info("Obtendo o cartão {} da transação", numeroCartao);
+        
+        Transacao transacao = criarTransacao(transacaoDTO, numeroCartao);
+        transacaoRepository.save(transacao);
+
+        Cartao cartao = cartaoRepository.findByNumeroCartao(numeroCartao)
+                .orElseThrow(() -> new StatusTransacaoException(StatusTransacaoEnum.CARTAO_INEXISTENTE.toString()));
+
+        validarSenha(transacaoDTO.getSenhaCartao(), cartao.getSenha());
+        validarSaldo(transacaoDTO.getValor(), cartao.getSaldo());
+
+        atualizarSaldo(cartao, transacaoDTO.getValor());
+        
+        return StatusTransacaoEnum.OK.toString();
+
+	}
+
+	private Transacao criarTransacao(TransacaoDTO dto, Long numeroCartao) {
+		return Transacao.builder()
+				.numeroCartao(numeroCartao)
+				.senhaCartao(dto.getSenhaCartao())
+				.valor(dto.getValor())
+				.build();
 	}
 	
-	public String realizarTransacao(TransacaoDTO transacaoDTO) {
-		 Long numeroCartao = Long.parseLong(transacaoDTO.getNumeroCartao());
-	     log.info(String.format("Obtendo o cartão %d da transação", numeroCartao));
-	     
-	     Transacao transacao = new Transacao();
-	     transacao.setNumeroCartao(numeroCartao);
-	     transacao.setSenhaCartao(transacaoDTO.getSenhaCartao());
-	     transacao.setValor(transacaoDTO.getValor());
-	     transacaoRepository.save(transacao);
-		
-	     Optional<Cartao> cartaoExistente = cartaoRepository.findByNumeroCartao(numeroCartao);
-	     
-	     if(cartaoExistente.isPresent()) {
-	    	 Cartao cartao = cartaoExistente.get();
-	    	 
-	    	 if(cartao.getSenha().equals(transacaoDTO.getSenhaCartao())) {
-	    		 
-	    		 BigDecimal saldo = cartao.getSaldo();
-	    		 if(saldo.doubleValue() > 0 && saldo.doubleValue() >= transacaoDTO.getValor().doubleValue()) {
-	    			 cartao.setSaldo(cartao.getSaldo().subtract(transacaoDTO.getValor()));
-	    			 cartaoRepository.save(cartao);
-	    		 } else {
-	    			 throw new StatusTransacaoException(StatusTransacaoEnum.SALDO_INSUFICIENTE.toString());
-	    		 }
-	    		 
-	    	 } else {
-	    		 throw new StatusTransacaoException(StatusTransacaoEnum.SENHA_INVALIDA.toString());
-	    	 }
-	    	 
-	     } else {
-	    	 throw new StatusTransacaoException(StatusTransacaoEnum.CARTAO_INEXISTENTE.toString());
-	     }
-		
-		return StatusTransacaoEnum.OK.toString();
-		
+	private void validarSenha(String senhaDTO, String senhaCartao) {
+        if (!senhaDTO.equals(senhaCartao)) {
+            throw new StatusTransacaoException(StatusTransacaoEnum.SENHA_INVALIDA.toString());
+        }
     }
-	
+
+    private void validarSaldo(BigDecimal valorTransacao, BigDecimal saldo) {
+        if (saldo.compareTo(valorTransacao) < 0) {
+            throw new StatusTransacaoException(StatusTransacaoEnum.SALDO_INSUFICIENTE.toString());
+        }
+    }
+
+    private void atualizarSaldo(Cartao cartao, BigDecimal valorTransacao) {
+        cartao.setSaldo(cartao.getSaldo().subtract(valorTransacao));
+        cartaoRepository.save(cartao);
+    }
+
 }

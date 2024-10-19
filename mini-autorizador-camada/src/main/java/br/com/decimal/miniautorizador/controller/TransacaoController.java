@@ -20,9 +20,8 @@ public class TransacaoController {
 
     @PostMapping
     public ResponseEntity<String> realizarTransacao(@RequestBody TransacaoDTO transacaoDTO) {
-        String resultado = "";
     	try {
-			resultado = transacaoService.realizarTransacao(transacaoDTO);
+			String resultado = transacaoService.realizarTransacao(transacaoDTO);
 			return new ResponseEntity<>(resultado, HttpStatus.CREATED);
 		} catch (Exception e) {
 			return new ResponseEntity<>(e.getMessage(), HttpStatus.UNPROCESSABLE_ENTITY);

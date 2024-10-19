@@ -19,9 +19,7 @@ public class Cartao {
     private Long id;
 
     private Long numeroCartao;
-
     private BigDecimal saldo;
-
     private String senha;
 
 }
