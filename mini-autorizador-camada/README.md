@@ -18,7 +18,7 @@ docker-compose up -d
 
 Acesse a pasta ***mini-autorizador-camada***
 
-Abra o arquivo ***pom.xml*** utilizando a sua IDEA de preferência
+Abra o arquivo ***pom.xml*** utilizando a sua IDE de preferência
 
 Aguarde o download de todas as dependências do projeto
 
