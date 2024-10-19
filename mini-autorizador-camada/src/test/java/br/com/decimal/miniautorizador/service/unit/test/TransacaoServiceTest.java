@@ -55,17 +55,14 @@ public class TransacaoServiceTest {
     public void deveRetornarCartaoInexistente() {
         Long numeroCartao = 0L;
         
-        Cartao cartao = new Cartao();
-        cartao.setNumeroCartao(numeroCartao);
-        cartao.setSaldo(new BigDecimal("500.00"));
-        cartao.setSenha("1234");
-        
         TransacaoDTO transacaoDTO = new TransacaoDTO();
         transacaoDTO.setNumeroCartao(String.valueOf(numeroCartao));
         transacaoDTO.setSenhaCartao("1234");
         transacaoDTO.setValor(BigDecimal.valueOf(500.00));
 
-        assertThrows(StatusTransacaoException.class, () -> transacaoService.realizarTransacao(transacaoDTO));
+        StatusTransacaoException exception = assertThrows(StatusTransacaoException.class, () -> transacaoService.realizarTransacao(transacaoDTO));
+        assertEquals("CARTAO_INEXISTENTE", exception.getMessage());
+        
     }
 	
 	@Test
@@ -81,8 +78,11 @@ public class TransacaoServiceTest {
         transacaoDTO.setNumeroCartao(String.valueOf(numeroCartao));
         transacaoDTO.setSenhaCartao("1234");
         transacaoDTO.setValor(BigDecimal.valueOf(500.01));
+        
+        when(cartaoRepository.findByNumeroCartao(numeroCartao)).thenReturn(Optional.of(cartao));
 
-        assertThrows(StatusTransacaoException.class, () -> transacaoService.realizarTransacao(transacaoDTO));
+        StatusTransacaoException exception = assertThrows(StatusTransacaoException.class, () -> transacaoService.realizarTransacao(transacaoDTO));
+        assertEquals("SALDO_INSUFICIENTE", exception.getMessage());
     }
 	
 	@Test
@@ -97,9 +97,12 @@ public class TransacaoServiceTest {
         TransacaoDTO transacaoDTO = new TransacaoDTO();
         transacaoDTO.setNumeroCartao(String.valueOf(numeroCartao));
         transacaoDTO.setSenhaCartao("12345");
-        transacaoDTO.setValor(BigDecimal.valueOf(500.01));
+        transacaoDTO.setValor(BigDecimal.valueOf(500.00));
+        
+        when(cartaoRepository.findByNumeroCartao(numeroCartao)).thenReturn(Optional.of(cartao));
 
-        assertThrows(StatusTransacaoException.class, () -> transacaoService.realizarTransacao(transacaoDTO));
+        StatusTransacaoException exception = assertThrows(StatusTransacaoException.class, () -> transacaoService.realizarTransacao(transacaoDTO));
+        assertEquals("SENHA_INVALIDA", exception.getMessage());
     }
 	
 	

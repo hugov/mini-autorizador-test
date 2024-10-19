@@ -1,7 +1,6 @@
 package br.com.decimal.miniautorizador.entity;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -21,11 +20,7 @@ public class Cartao {
 
     private Long numeroCartao;
 
-    private LocalDateTime dataValidade;
-
     private BigDecimal saldo;
-
-    private Integer situacao;
 
     private String senha;
 

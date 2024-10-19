@@ -1,7 +1,6 @@
 package br.com.decimal.miniautorizador.service;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,9 +12,10 @@ import br.com.decimal.miniautorizador.repository.CartaoRepository;
 import lombok.extern.slf4j.Slf4j;
 
 @Service
-//@RequiredArgsConstructor
 @Slf4j
 public class CartaoService {
+	
+	private static final Double SALDO_INICIAL = 500.0d;
 	
 	@Autowired
 	private CartaoRepository cartaoRepository;
@@ -32,9 +32,7 @@ public class CartaoService {
         Cartao novoCartao = new Cartao();
         novoCartao.setNumeroCartao(numeroCartao);
         novoCartao.setSenha(cartaoDTO.getSenha());
-        novoCartao.setDataValidade(LocalDateTime.now().plusYears(5));
-        novoCartao.setSaldo(BigDecimal.ZERO);
-        novoCartao.setSituacao(1);
+        novoCartao.setSaldo(BigDecimal.valueOf(SALDO_INICIAL));
 
         cartaoRepository.save(novoCartao);
 
