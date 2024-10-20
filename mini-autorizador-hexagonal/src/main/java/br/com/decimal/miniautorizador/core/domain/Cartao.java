@@ -34,7 +34,7 @@ public class Cartao {
     	if (saldo.compareTo(valor) >= 0) {
     		saldo = saldo.subtract(valor);
         } else {
-            throw new RuntimeException("Saldo insuficiente");
+            throw new StatusTransacaoException("SALDO_INSUFICIENTE");
         }
     }
     
