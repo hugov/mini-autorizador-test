@@ -10,9 +10,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>br.com.decimal</groupId>
-	<artifactId>mini-autorizador-camada</artifactId>
+	<artifactId>mini-autorizador-hexagonal</artifactId>
 	<version>0.0.1</version>
-	<name>mini-autorizador-camada</name>
+	<name>mini-autorizador-hexagonal</name>
 	<description>Mini autorizador de transações de cartões de benefícios.</description>
 	<url/>
 	
