@@ -73,6 +73,16 @@ public class CartaoServiceTest {
         assertEquals(new BigDecimal("123.45"), saldo);
         verify(cartaoRepository, times(1)).findByNumeroCartao(numeroCartao);
     }
+    
+    @Test
+    public void deveRetornarCartaoNaoExiste() {
+        Long numeroCartao = 123456789L;
+        
+        when(cartaoRepository.findByNumeroCartao(numeroCartao)).thenReturn(Optional.empty());
+
+        assertThrows(RuntimeException.class, () -> cartaoService.consultarSaldoCartao(numeroCartao));
+        verify(cartaoRepository, times(1)).findByNumeroCartao(numeroCartao);
+    }
 
     @Test
     public void deveLancarExcecaoQuandoCartaoNaoExistir() {
