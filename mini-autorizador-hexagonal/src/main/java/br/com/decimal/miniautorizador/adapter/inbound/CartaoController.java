@@ -8,14 +8,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.decimal.miniautorizador.core.port.inbound.CartaoService;
+import br.com.decimal.miniautorizador.core.port.inbound.CriarCartaoService;
 
 @RestController
 @RequestMapping("/cartoes")
 public class CartaoController {
 	
 	@Autowired
-    private CartaoService cartaoService;
+    private CriarCartaoService cartaoService;
 
     @PostMapping
     public ResponseEntity<CartaoRequest> cadastrarCartao(@RequestBody CartaoRequest cartaoRequest) {

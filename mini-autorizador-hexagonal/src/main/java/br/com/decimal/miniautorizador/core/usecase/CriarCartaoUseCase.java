@@ -7,14 +7,14 @@ import org.springframework.stereotype.Service;
 
 import br.com.decimal.miniautorizador.adapter.outbound.CartaoRepositoryPort;
 import br.com.decimal.miniautorizador.core.domain.Cartao;
-import br.com.decimal.miniautorizador.core.port.inbound.CartaoService;
+import br.com.decimal.miniautorizador.core.port.inbound.CriarCartaoService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Service
 @Slf4j
 @AllArgsConstructor
-public class CriarCartaoUseCase implements CartaoService {
+public class CriarCartaoUseCase implements CriarCartaoService {
 	
 	@Autowired
 	private final CartaoRepositoryPort cartaoRepositoryPort;
