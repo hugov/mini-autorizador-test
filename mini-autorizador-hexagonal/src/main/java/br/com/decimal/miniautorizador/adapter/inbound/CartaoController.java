@@ -14,8 +14,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.decimal.miniautorizador.core.port.inbound.ConsultarSaldoCartaoService;
 import br.com.decimal.miniautorizador.core.port.inbound.CriarCartaoService;
+import lombok.extern.slf4j.Slf4j;
 
 @RestController
+@Slf4j
 @RequestMapping("/cartoes")
 public class CartaoController {
 	
@@ -27,7 +29,9 @@ public class CartaoController {
 
     @PostMapping
     public ResponseEntity<CartaoRequest> cadastrarCartao(@RequestBody CartaoRequest cartaoRequest) {
-        try {
+    	log.info("Cadastrando o cartão {} ", cartaoRequest);
+        
+    	try {
         	criarCartaoService.criarCartao(cartaoRequest.getNumeroCartao(), cartaoRequest.getSenha());
 			return new ResponseEntity<>(cartaoRequest, HttpStatus.CREATED);
 		} catch (Exception e) {
@@ -37,6 +41,8 @@ public class CartaoController {
     
     @GetMapping("/{numeroCartao}")
     public ResponseEntity<BigDecimal> consultarSaldoCartao(@PathVariable Long numeroCartao) {
+    	log.info("Consultando o saldo do cartão {} ", numeroCartao);
+    	
     	try {
     		BigDecimal saldo = consultarSaldoCartaoService.consultarSaldoCartao(numeroCartao);
     		return new ResponseEntity<>(saldo, HttpStatus.OK);

@@ -30,7 +30,7 @@ public class TransacaoServiceTest {
     private CartaoRepository cartaoRepository;
     
 	@Test
-    public void deveRetornarSaldoComSucesso() {
+    public void deveRetornarDebitoComSucesso() {
         Long numeroCartao = 6549873025634501L;
         Cartao cartao = prepareCartao(numeroCartao, 500.0d, "1234");
         TransacaoDTO transacaoDTO = prepareTransacao(numeroCartao, 20.00d, "1234");

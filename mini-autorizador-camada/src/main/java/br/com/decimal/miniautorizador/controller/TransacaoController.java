@@ -10,8 +10,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.decimal.miniautorizador.dto.TransacaoDTO;
 import br.com.decimal.miniautorizador.service.TransacaoService;
+import lombok.extern.slf4j.Slf4j;
 
 @RestController
+@Slf4j
 @RequestMapping("/transacoes")
 public class TransacaoController {
 	
@@ -20,6 +22,8 @@ public class TransacaoController {
 
     @PostMapping
     public ResponseEntity<String> realizarTransacao(@RequestBody TransacaoDTO transacaoDTO) {
+    	log.info("Realizando a transação de débito do cartão {} ", transacaoDTO);
+    	
     	try {
 			String resultado = transacaoService.realizarTransacao(transacaoDTO);
 			return new ResponseEntity<>(resultado, HttpStatus.CREATED);

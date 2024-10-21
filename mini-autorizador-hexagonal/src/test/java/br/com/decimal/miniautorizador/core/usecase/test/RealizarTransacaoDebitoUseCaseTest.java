@@ -30,7 +30,7 @@ public class RealizarTransacaoDebitoUseCaseTest {
 	private RealizarTransacaoDebitoUseCase realizarTransacaoDebitoUseCase;
 
     @Test
-    public void deveRetornarSaldoComSucesso() {
+    public void deveRetornarDebitoComSucesso() {
         Long numeroCartao = 6549873025634501L;
         Cartao cartao = prepareCartao(numeroCartao, 500.0d, "1234");
         Transacao transacao = prepareTransacao(numeroCartao, 20.00d, "1234");
