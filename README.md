@@ -11,3 +11,4 @@ Para atender ao desafio e a minha curiosidade de como o projeto ficaria em difer
 | ------------ | ------------ |------------------------------------|
 | 1  |  mini-autorizador-camada | A aplicação foi desenvolvida utilizando a *Arquitetura em camadas* |
 | 2  |  mini-autorizador-hexagonal | A aplicação foi desenvolvida utilizando a *Arquitetura Hexagonal*      |
+| 3  |  mini-autorizador-microservicos | Em breve      |
