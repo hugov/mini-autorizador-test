@@ -9,5 +9,5 @@ Para atender ao desafio e a minha curiosidade de como o projeto ficaria em difer
 
 | #  | Projeto  | Descrição                          |
 | ------------ | ------------ |------------------------------------|
-| 1  |  Arquitetura Camadas | A aplicação foi desenvolvida utilizando a arquitetura em camadas |
-| 2  |  Arquitetura Hexagonal | Em breve      |
+| 1  |  mini-autorizador-camada | A aplicação foi desenvolvida utilizando a *Arquitetura em camadas* |
+| 2  |  mini-autorizador-hexagonal | A aplicação foi desenvolvida utilizando a *Arquitetura Hexagonal*      |
