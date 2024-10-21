@@ -2,8 +2,8 @@ package br.com.decimal.miniautorizador.adapter.inbound.test;
 
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 
 import java.time.LocalDateTime;
@@ -25,7 +25,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import br.com.decimal.miniautorizador.adapter.inbound.CartaoController;
 import br.com.decimal.miniautorizador.adapter.inbound.CartaoRequest;
-import br.com.decimal.miniautorizador.core.domain.StatusTransacaoException;
 import br.com.decimal.miniautorizador.core.port.inbound.ConsultarSaldoCartaoService;
 import br.com.decimal.miniautorizador.core.port.inbound.CriarCartaoService;
 
