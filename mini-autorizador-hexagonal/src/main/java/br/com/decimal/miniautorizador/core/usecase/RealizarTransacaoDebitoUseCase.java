@@ -28,11 +28,7 @@ public class RealizarTransacaoDebitoUseCase implements RealizarTransacaoDebitoSe
         
         Optional<Cartao> cartaoExistente = cartaoRepositoryPort.findByNumeroCartao(numeroCartaoTmp);
         
-        if (!cartaoExistente.isPresent()) {
-            throw new StatusTransacaoException("CARTAO_INEXISTENTE");
-        }
-        
-        Cartao cartao = cartaoExistente.get();
+        Cartao cartao = cartaoExistente.orElseThrow(() -> new StatusTransacaoException("CARTAO_INEXISTENTE"));
         
         if (!cartao.isSenhaCorreta(senha)) {
             throw new StatusTransacaoException("SENHA_INVALIDA");

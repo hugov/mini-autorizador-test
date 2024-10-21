@@ -25,11 +25,8 @@ public class ConsultarSaldoCartaoUseCase implements ConsultarSaldoCartaoService 
 		log.info("Consultando o saldo do cartão {}", numeroCartao);
 
         Optional<Cartao> cartaoExistente = cartaoRepositoryPort.findByNumeroCartao(numeroCartao);
-        if (cartaoExistente.isPresent()) {
-            return cartaoExistente.get().getSaldo();
-        } else {
-        	throw new RuntimeException("Cartão não existe");
-        }
+        return cartaoExistente.orElseThrow(() -> new RuntimeException("Cartão não existe")).getSaldo();
+        
 	}
 
 }

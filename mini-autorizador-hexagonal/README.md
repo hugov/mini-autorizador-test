@@ -16,7 +16,7 @@ Abra um terminal dentro da pasta ***docker*** que está na raiz do projeto e exe
 docker-compose up -d
 ```
 
-Acesse a pasta ***mini-autorizador-camada***
+Acesse a pasta ***mini-autorizador-hexagonal***
 
 Abra o arquivo ***pom.xml*** utilizando a sua IDE de preferência
 
