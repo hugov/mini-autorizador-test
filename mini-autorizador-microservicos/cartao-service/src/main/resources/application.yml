@@ -15,3 +15,6 @@ spring:
       name: username
       password: password
       roles: USER
+
+server:
+  port: 8081
