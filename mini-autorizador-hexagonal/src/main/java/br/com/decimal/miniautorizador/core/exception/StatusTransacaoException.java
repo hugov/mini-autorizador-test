@@ -1,4 +1,4 @@
-package br.com.decimal.miniautorizador.core.domain;
+package br.com.decimal.miniautorizador.core.exception;
 
 public class StatusTransacaoException extends RuntimeException {
 	

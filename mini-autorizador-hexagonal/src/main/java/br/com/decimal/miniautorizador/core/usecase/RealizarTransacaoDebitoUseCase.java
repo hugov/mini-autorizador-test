@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 import br.com.decimal.miniautorizador.adapter.outbound.CartaoRepositoryPort;
 import br.com.decimal.miniautorizador.core.domain.Cartao;
-import br.com.decimal.miniautorizador.core.domain.StatusTransacaoException;
+import br.com.decimal.miniautorizador.core.exception.StatusTransacaoException;
 import br.com.decimal.miniautorizador.core.port.inbound.RealizarTransacaoDebitoService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

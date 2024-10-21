@@ -25,12 +25,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import br.com.decimal.miniautorizador.adapter.inbound.TransacaoController;
 import br.com.decimal.miniautorizador.adapter.inbound.TransacaoRequest;
-import br.com.decimal.miniautorizador.core.domain.StatusTransacaoException;
+import br.com.decimal.miniautorizador.core.exception.StatusTransacaoException;
 import br.com.decimal.miniautorizador.core.port.inbound.RealizarTransacaoDebitoService;
-import lombok.extern.slf4j.Slf4j;
 
 @SpringBootTest
-@Slf4j
 public class TransacaoControllerTest {
 	
 	@InjectMocks

@@ -2,6 +2,7 @@ package br.com.decimal.miniautorizador.core.domain;
 
 import java.math.BigDecimal;
 
+import br.com.decimal.miniautorizador.core.exception.StatusTransacaoException;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;

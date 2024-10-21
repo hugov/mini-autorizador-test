@@ -16,8 +16,8 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 
 import br.com.decimal.miniautorizador.adapter.outbound.CartaoRepositoryPort;
 import br.com.decimal.miniautorizador.core.domain.Cartao;
-import br.com.decimal.miniautorizador.core.domain.StatusTransacaoException;
 import br.com.decimal.miniautorizador.core.domain.Transacao;
+import br.com.decimal.miniautorizador.core.exception.StatusTransacaoException;
 import br.com.decimal.miniautorizador.core.usecase.RealizarTransacaoDebitoUseCase;
 
 @SpringBootTest
