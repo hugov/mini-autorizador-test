@@ -43,11 +43,7 @@ public class CartaoService {
         log.info("Consultado o saldo do cartão {}", numeroCartao);
 
         Optional<Cartao> cartaoExistente = cartaoRepository.findByNumeroCartao(numeroCartao);
-        if (cartaoExistente.isPresent()) {
-            return cartaoExistente.get().getSaldo();
-        } else {
-        	throw new RuntimeException("Cartão não existe");
-        }
+        return cartaoExistente.orElseThrow(() -> new RuntimeException("Cartão não existe")).getSaldo();
     }
 
 }
