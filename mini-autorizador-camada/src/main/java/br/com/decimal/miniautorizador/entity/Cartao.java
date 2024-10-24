@@ -7,11 +7,15 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
-@Data
 @Table(name = "cartoes")
+@NoArgsConstructor
+@Getter
+@Setter
 public class Cartao {
 	
 	@Id
@@ -21,5 +25,12 @@ public class Cartao {
     private Long numeroCartao;
     private BigDecimal saldo;
     private String senha;
-
+	
+    public Cartao(Long numeroCartao, BigDecimal saldo, String senha) {
+		super();
+		this.numeroCartao = numeroCartao;
+		this.saldo = saldo;
+		this.senha = senha;
+	}
+    
 }

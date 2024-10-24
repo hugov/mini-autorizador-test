@@ -29,11 +29,7 @@ public class CartaoService {
             throw new RuntimeException("Cartão já existe");
         }
 
-        Cartao novoCartao = new Cartao();
-        novoCartao.setNumeroCartao(numeroCartao);
-        novoCartao.setSenha(cartaoDTO.getSenha());
-        novoCartao.setSaldo(BigDecimal.valueOf(SALDO_INICIAL));
-
+        Cartao novoCartao = new Cartao(numeroCartao, BigDecimal.valueOf(SALDO_INICIAL), cartaoDTO.getSenha());
         cartaoRepository.save(novoCartao);
 
         return cartaoDTO;
@@ -45,5 +41,5 @@ public class CartaoService {
         Optional<Cartao> cartaoExistente = cartaoRepository.findByNumeroCartao(numeroCartao);
         return cartaoExistente.orElseThrow(() -> new RuntimeException("Cartão não existe")).getSaldo();
     }
-
+	
 }

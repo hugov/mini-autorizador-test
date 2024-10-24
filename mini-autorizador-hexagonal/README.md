@@ -6,23 +6,23 @@
 
 ## Execução do Sistema
 
-Clone o repositório ou faça download do arquivo ***.zip***
+Clone o repositório ou faça download do arquivo **.zip**
 ```
 git clone https://github.com/hugov/mini-autorizador-test.git
 ```
 
-Abra um terminal dentro da pasta ***docker*** que está na raiz do projeto e execute o seguinte comando:
+Abra um terminal dentro da pasta **docker** que está na raiz do projeto e execute o seguinte comando:
 ```
 docker-compose up -d
 ```
 
-Acesse a pasta ***mini-autorizador-hexagonal***
+Acesse a pasta **mini-autorizador-hexagonal**
 
-Abra o arquivo ***pom.xml*** utilizando a sua IDE de preferência
+Abra o arquivo **pom.xml** utilizando a sua IDE de preferência
 
 Aguarde o download de todas as dependências do projeto
 
-Execute o método ***main*** presente na classe ***MiniAutorizadorApplication.java***
+Execute o método **main** presente na classe **MiniAutorizadorApplication.java**
 
 ## Rotas
 
