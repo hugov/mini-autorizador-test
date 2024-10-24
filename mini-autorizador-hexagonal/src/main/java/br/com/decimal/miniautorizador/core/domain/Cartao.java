@@ -2,19 +2,20 @@ package br.com.decimal.miniautorizador.core.domain;
 
 import java.math.BigDecimal;
 
-import br.com.decimal.miniautorizador.core.exception.StatusTransacaoException;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
-@Data
 @NoArgsConstructor
 @Table(name = "cartoes")
+@Getter
+@Setter
 public class Cartao {
 	
 	@Id
@@ -31,16 +32,4 @@ public class Cartao {
 		this.senha = senha;
 	}
     
-    public void debito(BigDecimal valor) {
-    	if (saldo.compareTo(valor) >= 0) {
-    		saldo = saldo.subtract(valor);
-        } else {
-            throw new StatusTransacaoException("SALDO_INSUFICIENTE");
-        }
-    }
-    
-    public boolean isSenhaCorreta(String senha) {
-    	return this.senha.equals(senha);
-    }
-
 }
